@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<!--<![endif]-->
+
+<!-- Mirrored from aaryaweb.info/html/gecko/gek002/shop.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 05 Dec 2023 01:49:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<th:block th:insert="layout/head"></th:block>
+<body >
+<div class="se-pre-con"></div>
+<div class="main"> 
+  <!-- HEADER START -->
+<th:block th:insert="layout/header.html"></th:block>
+  <!-- HEADER END -->
+
+  <!-- BANNER STRAT -->
+  <div class="banner inner-banner align-center">
+    <section class="banner-detail">
+      <h1 class="banner-title">Shop</h1>
+    </section>
+  </div>
+  <!-- BANNER END -->
+  <div class="mian-contain">
+    <div class="container">
+      <!-- CONTAIN START -->
+      <section class="ptb-95 ptb-sm-60 ptb-xs-30">
+        <div class="row">
+          <div class="col-md-3 col-sm-4 mb-xs-30">
+            <div class="sidebar-block">
+              <div class="sidebar-box listing-box mb-40"> <span class="opener plus"></span>
+                <div class="sidebar-title">
+                  <h3>Categories</h3>
+                </div>
+                <div class="sidebar-contant">
+                  <ul th:each="cat : ${categories}">
+                    <li th:ìf="${cat.status}"><a th:href="@{'/shop/category/' + ${cat.categoryId}}" th:text="${cat.categoryName}"></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9 col-sm-8">
+            <div class="shorting mb-30">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="view">
+                    <form class="form-inline">
+                      <input type="text" name="search" class="form-control mr-sm-2" placeholder=".....">
+                      <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="product-listing">
+              <div class="row">
+                <div th:each="pro : ${products}" th:if="${pro.status}" class="col-md-4 col-sm-6 col-xs-6">
+                  <div class="product-item">
+                    <div class="product-image"> <a th:href="@{'/shop/product-page/' + ${pro.productId}}"> <img th:src="@{'http://localhost:9171/uploads/images/' + ${pro.imageUrl}}" alt=""> </a>
+                      <a th:href="@{'/shop/product-page/' + ${pro.productId}}">
+                        <div class="product-detail-inner">
+                          <div class="detail-inner-left">
+                          </div>
+                          <div class="rating-summary-block right-side"></div>
+                        </div>
+                      </a>
+
+                    </div>
+                    <div class="product-item-details">
+                      <div class="product-item-name"> <a th:href="@{'/shop/product-page/' + ${pro.productId}}" th:text="${pro.productName}"></a> </div>
+                      <div class="price-box"> <span class="price" th:text="${#numbers.formatDecimal(pro.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="pagination-bar">
+                    <ul>
+                      <li th:each="i : ${#numbers.sequence(1, totalPage)}"><a th:href="@{/shop/{noPage}(noPage=${i})}" th:text="${i}"></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- CONTAINER END --> 
+    </div>
+  </div>
+
+  <!--  Newsletter Block Start  --> 
+  <!--  Newsletter Block Start  -->
+  
+  <!-- FOOTER START -->
+<th:block th:insert="layout/footer.html"></th:block>
+  <!-- FOOTER END -->
+</div>
+<th:block th:insert="layout/script.html"></th:block>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<th:block th:insert="layout/admin-head"></th:block>
+<body>
+<div>
+    <div class="row justify-content-center align-items-center">
+        <div class="modal-content w-50 bg-white shadow p-3 rounded">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="expaddLabel">Edit Category</h5>
+            </div>
+            <div class="modal-body">
+                <div class="deadline-form">
+                    <form action="/admin/category/update" method="post" th:object="${category}">
+                        <input th:field="*{categoryId}" type="hidden">
+                        <input th:field="*{status}" type="hidden">
+                        <div class="row g-3 mb-3">
+                            <label for="item" class="form-label">Category Name</label>
+                            <input th:field="*{categoryName}" type="text" class="form-control" id="item">
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <label for="depone" class="form-label">description</label>
+                            <input th:field="*{description}" type="text" class="form-control" id="depone">
+                        </div>
+                        <div class="modal-footer">
+                            <a href="/admin/category/1"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button></a>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

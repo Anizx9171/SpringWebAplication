@@ -1,0 +1,83 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org/">
+
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/order.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 05 Dec 2023 01:28:40 GMT -->
+<th:block th:insert="layout/admin-head.html"></th:block>
+
+<body>
+    <div id="ebazar-layout" class="theme-blue">
+
+        <!-- sidebar -->
+        <th:block th:insert="layout/admin-sidebar.html"></th:block>
+
+        <!-- main body area -->
+        <div class="main px-lg-4 px-md-4"> 
+
+            <!-- Body: Header -->
+            <th:block th:insert="layout/admin-header.html"></th:block>
+
+            <!-- Body: Body -->       
+            <div class="body d-flex py-lg-3 py-md-2">
+                <div class="container-xxl">
+                    <div class="row align-items-center">
+                        <div class="border-0 mb-4">
+                            <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                                <h3 class="fw-bold mb-0">Order Information</h3>
+                                <div class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0 ">
+                                    <div class="input-group flex-nowrap input-group-lg">
+                                        <input type="search" class="form-control" placeholder="Search" aria-label="search" aria-describedby="addon-wrapping">
+                                        <button type="button" class="input-group-text" id="addon-wrapping"><i class="bi bi-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row end  -->
+                    <div class="row clearfix g-3">
+                        <div class="col-sm-12">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <table id="myProjectTable" class="table table-hover align-middle mb-0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Customer Id</th>
+                                                <th>Total</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="item : ${orders}">
+                                                <td><strong th:text="${item.orderId}"></strong></td>
+                                                <td th:text="${item.customerId}"></td>
+                                                <td th:text="${#numbers.formatDecimal(item.total, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
+                                                <td th:text="${item.status == 1? 'Waiting' : (item.status == 2 ? 'Confirm' : 'Refuse')}"></td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                        <a th:href="${'/admin/order/edit/' + item.orderId}">
+                                                            <button type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#expedit"><i class="icofont-edit text-success"></i></button>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="d-flex align-content-center justify-content-center gap-1">
+                                        <div th:each="i : ${#numbers.sequence(1, totalPage)}">
+                                            <a class="fs-6 text-decoration-underline" th:href="@{/admin/customer/{page}(page=${i})}" th:text="${i}"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- Row End -->
+                </div>
+            </div>
+        </div> 
+            
+    </div>
+    <th:block th:insert="layout/admin-script.html"></th:block>
+</body>
+
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/order.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 05 Dec 2023 01:28:41 GMT -->
+</html>

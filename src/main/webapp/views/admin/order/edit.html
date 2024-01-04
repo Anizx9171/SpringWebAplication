@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<th:block th:insert="layout/admin-head"></th:block>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px; /* Thêm khoảng cách giữa bảng và các phần tử khác */
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    thead {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5; /* Hiển thị màu khi di chuột qua hàng */
+    }
+</style>
+<body>
+<div>
+    <div class="row justify-content-center align-items-center">
+        <div class="modal-content w-50 bg-white shadow p-3 rounded">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="expaddLabel">Order Detail</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="deadline-form">
+                    <form action="/admin/order/update" method="post">
+                        <input type="hidden" name="orderId" th:value="${order.orderId}">
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-12">
+                                <label for="item" class="form-label">Customer Name</label>
+                                <input th:value="${customer.customerName}" type="text" class="form-control" id="item" readonly>
+                            </div>
+                            <div class="col-sm-12">
+                                <label class="form-label">Item Order</label>
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>product name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="item : ${order_details}">
+                                        <td th:text="${item.product.productName}"></td>
+                                        <td th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
+                                        <td th:text="${item.quantity}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                                <label for="depone" class="form-label">address</label>
+                                <input th:value="${customer.address}" type="text" class="form-control" id="depone" readonly>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-6">
+                                <label for="abc11" class="form-label">status</label>
+                                <input th:value="${order.status == 1? 'Waiting' : (order.status == 2 ? 'Confirm' : 'Refuse')}" type="text" class="form-control" id="abc11" readonly>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="abc" class="form-label">Phone Number</label>
+                                <input th:value="${customer.phoneNumber}" type="text" class="form-control w-100" id="abc" readonly>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="/admin/order" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</a>
+                            <button th:if="${order.status == 1}" type="submit" name="sta" value="0" class="btn btn-danger">Refuse</button>
+                            <button th:if="${order.status == 1}" type="submit" name="sta" value="2" class="btn btn-primary">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

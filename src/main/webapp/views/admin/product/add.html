@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<th:block th:insert="layout/admin-head"></th:block>
+<style>
+    #file-input {
+        display: none;
+    }
+
+    .preview {
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 50%;
+        max-width: 350px;
+        margin: auto;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0 0 20px rgba(170, 170, 170, 0.2);
+    }
+
+    img {
+        width: 50%;
+        object-fit: cover;
+        margin-bottom: 20px;
+    }
+</style>
+<body>
+<div>
+    <div class="row justify-content-center align-items-center">
+        <div class="modal-content w-50 bg-white shadow p-3 rounded">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="expaddLabel">Add Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="deadline-form">
+                    <form action="/admin/product/create" method="post" enctype="multipart/form-data" th:object="${product}">
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-12">
+                                <label for="item" class="form-label">Product Name</label>
+                                <input type="text" th:field="*{productName}" class="form-control" id="item">
+                            </div>
+                            <div class="col-sm-12">
+                                    <label for="file-input">Image</label>
+                                    <div class="container-preview">
+                                        <div class="preview">
+                                            <img id="img-preview" src="./img.jpg" />
+                                            <label class="border border-primary p-20" for="file-input">Upload Image</label>
+                                            <input accept="image/*" name="img" type="file" id="file-input" />
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <label for="depone" class="form-label">Description</label>
+                            <input type="text" class="form-control" id="depone" th:field="*{description}">
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <label for="choice" class="form-label">Category</label>
+                            <select id="choice" name="catalog" class="form-control">
+                                <option  th:each="cat : ${categories}" th:text="${cat.categoryName}" th:value="${cat.categoryId}"></option>
+                            </select>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-6">
+                                <label for="abc11" class="form-label">Stock</label>
+                                <input th:field="*{quantity}" type="text" class="form-control" id="abc11">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="abc" class="form-label">Price</label>
+                                <input th:field="*{price}" type="number" class="form-control w-100" id="abc">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="/admin/product">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+                            </a>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const input = document.getElementById('file-input');
+    const image = document.getElementById('img-preview');
+
+    input.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+            const src = URL.createObjectURL(e.target.files[0]);
+            image.src = src;
+        }
+    });
+</script>
+</body>
+</html>

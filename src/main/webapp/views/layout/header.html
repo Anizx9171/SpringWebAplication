@@ -1,0 +1,126 @@
+<header class="navbar navbar-custom" id="header">
+
+    <div class="header-top">
+
+        <div class="container">
+
+            <div class="header-inner">
+
+                <div class="row">
+
+                    <div class="col-md-8 col-sm-8 col-xs-6">
+
+                        <div class="navbar-header"><a class="navbar-brand page-scroll" href="/"> <img alt="Gecko"
+                                                                                                      th:src="@{/images/logo.png}">
+                        </a></div>
+
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+
+                        <div class="right-side float-none-sm position-r">
+
+                            <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle"
+                                    type="button"><i class="fa fa-bars"></i></button>
+
+                            <div class="right-side float-left-xs header-right-link">
+                                <ul>
+                                    <li th:if="${session.customerLogin == null}" class="account-icon">
+                                        <a href="#"><span></span></a>
+                                        <div class="header-link-dropdown account-link-dropdown">
+                                            <ul class="link-dropdown-list">
+                                                <li><span class="dropdown-title">Welcome Gecko!</span>
+                                                    <ul>
+                                                        <li><a href="/login">Sign In</a></li>
+                                                        <li><a href="/register">Create an Account</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    <li th:unless="${session.customerLogin == null}">
+                                        <a href="#"><img class="img-circle" th:src="@{'http://localhost:9171/uploads/images/' + ${session.customerLogin.imageUrl}}" style="border-radius: 25px; width: 35px; height: 35px;">
+                                        </a>
+                                        <div class="header-link-dropdown account-link-dropdown">
+                                            <ul class="link-dropdown-list">
+                                                <li><span class="dropdown-title">Welcome Gecko!</span>
+                                                    <ul>
+                                                        <li><a href="/logout">Sign Out</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                    <li class="cart-icon" ><a href="/cart"> <span> <small
+                                            class="cart-notification" th:text="${session.cartItems != null ? session.cartItems.size(): 0}"></small> </span> </a></li>
+                                    <li th:if="${session.customerLogin != null}" class="cart-icon" ><a href="/history">
+                                        <img width="30" src="https://cdn0.iconfinder.com/data/icons/multimedia-solid-30px/30/recent_history_replay_repeat-512.png" alt=""> </a></li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="header_search_toggle mobile-view">
+
+                    <form>
+
+                        <div class="search-box">
+
+                            <input class="input-text" type="text" placeholder="Search entire store here...">
+
+                            <button class="search-btn"></button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="header-bottom">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-md-9 col-sm-12 col-xs-12">
+
+                    <div id="menu" class="navbar-collapse collapse">
+
+                        <ul class="nav navbar-nav navbar-left">
+
+
+                            <li class="level"><span class="opener plus"></span>
+                                <a href="/shop" class="page-scroll">Shop</a>
+                            </li>
+                            <li class="level"><span class="opener plus"></span>
+                                <a href="/about" class="page-scroll">About</a>
+                            </li>
+                            <li class="level"><span class="opener plus"></span>
+                                <a href="/contact" class="page-scroll">Contact</a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>

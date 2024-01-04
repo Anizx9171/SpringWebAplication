@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<!--<![endif]-->
+
+<!-- Mirrored from aaryaweb.info/html/gecko/gek002/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 05 Dec 2023 01:50:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<th:block th:insert="layout/head.html"></th:block>
+<style>
+  .product-image img {
+    max-width: 50px;
+    height: auto;
+  }
+
+  .product-title p {
+    margin-bottom: 0;
+  }
+</style>
+<body >
+<div class="se-pre-con"></div>
+<div class="main"> 
+  <!-- HEADER START -->
+  <th:block th:insert="layout/header.html"></th:block>
+  <!-- HEADER END -->
+  <!-- BANNER STRAT -->
+  <div class="banner inner-banner align-center">
+    <section class="banner-detail">
+      <h1 class="banner-title">History</h1>
+    </section>
+  </div>
+  <!-- BANNER END --> 
+
+  <div class="mian-contain">
+    <div class="container"> 
+      
+      <!-- CONTAIN START ptb-95-->
+      <section class="ptb-95 ptb-sm-60 ptb-xs-30">
+        <div class="row">
+          <div class="col-xs-12 mb-xs-30">
+            <div class="cart-item-table commun-table">
+              <div class="table-responsive">
+                <div class="container mt-4">
+                  <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Order Id</th>
+                      <th scope="col" colspan="4">Items</th>
+                      <th scope="col">Sub Total</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody th:if="${orderList != null}">
+                    <tr th:each="item : ${orderList}">
+                      <td>
+                        <div class="product-title"> <p th:text="${item.order.orderId}"></p> </div>
+                      </td>
+                      <td colspan="4">
+                        <table class="table table-bordered table-sm">
+                          <tr th:each="detail : ${item.orderDetails}">
+                            <td>
+                              <div class="product-image">
+                                <img th:src="@{'http://localhost:9171/uploads/images/' + ${detail.product.imageUrl}}" class="img-fluid" alt="Product Image">
+                              </div>
+                            </td>
+                            <td>
+                              <div class="total-price price-box"> <span class="price" th:text="${detail.product.productName}"></span> </div>
+                            </td>
+                            <td>
+                              <div class="total-price price-box"> <span class="price" th:text="${#numbers.formatDecimal(detail.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span> </div>
+                            </td>
+                            <td>
+                              <div class="total-price price-box"> <span class="price" th:text="${detail.quantity}"></span> </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td>
+                        <div class="total-price price-box"> <span class="price" th:text="${#numbers.formatDecimal(item.order.total, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span> </div>
+                      </td>
+                      <td>
+                        <div class="total-price price-box"> <span class="price" th:text="${item.order.status == 1? 'Waiting' : (item.order.status == 2 ? 'Confirm' : 'Refuse')}"></span> </div>
+                      </td>
+                      <td>
+                        <a th:if="${item.order.status == 1}" th:href="${'/history/cancel/' + item.order.orderId}" class="btn btn-danger" role="button" title="Remove Item From Cart" data-id="100">Cancel</a>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- CONTAINER END --> 
+    </div>
+  </div>
+
+  <!--  Newsletter Block Start  --> 
+  <!--  Newsletter Block Start  -->
+  
+  <!-- FOOTER START -->
+<th:block th:insert="layout/footer.html"></th:block>
+  <!-- FOOTER END --> 
+</div>
+<th:block th:insert="layout/script.html"></th:block>
+</body>
+
+<!-- Mirrored from aaryaweb.info/html/gecko/gek002/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 05 Dec 2023 01:50:52 GMT -->
+</html>
